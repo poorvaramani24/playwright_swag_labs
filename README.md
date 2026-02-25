@@ -9,6 +9,7 @@ Architecture
 ------------
 Simple diagram (text):
 
+```
 Project Root
 ├─ config/         # environment config (yaml/json)
 ├─ core/           # DriverFactory, base_test, shared framework code
@@ -19,26 +20,10 @@ Project Root
 ├─ requirements.txt
 ├─ Dockerfile
 └─ pytest.ini
-
-Optional mermaid diagram:
-```mermaid
-flowchart TB
-  A[pytest CLI] --> B[conftest / base_test]
-  B --> C[DriverFactory]
-  C --> D[Browser / Context / Page (Playwright)]
-  D --> E[Pages (POM) used by tests]
-  E --> F[reports: html, screenshots, video, logs]
-  subgraph repo
-    config
-    core
-    pages
-    tests
-    utils
-    reports
-  end
 ```
 
-Capabilities (mapped to screenshot features)
+
+Capabilities
 --------------------------------------------
 - Config-driven
   - Put env-specific values (base_url, credentials, browser) in config/*.yaml or .env and load in conftest/core.
@@ -142,18 +127,6 @@ Example commands summary
   docker build -t playwright_swag_labs .
   docker run --rm -v "$(pwd)/reports":/app/reports playwright_swag_labs
   ```
-
-Capabilities checklist (from screenshot)
-----------------------------------------
-- Config-driven — yes (config/)
-- Parallel execution — yes (pytest-xdist `-n`)
-- Retry — yes (pytest-rerunfailures `--reruns`)
-- Logging — yes (utils/logger.py)
-- HTML report — yes (pytest-html)
-- Docker — yes (Dockerfile)
-- POM — yes (pages/)
-- Tags — yes (pytest markers)
-- Video — yes (Playwright record_video option -> reports/videos)
 
 License / Notes
 ---------------
